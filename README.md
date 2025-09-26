@@ -75,3 +75,7 @@ Dynamic Data Integration: Integrating the static dataset with a dynamic simulati
 Architectural Exploration: Aiming to push reliability above 90% by experimenting with modern architectures like DenseNet or EfficientNet and performing rigorous comparative analysis.
 
 Career Direction: The project serves as a foundation for exploring Medical Imaging Analysis (MIA) and related fields. Future efforts will involve studying technologies needed to integrate this network structure into clinical workflows.
+
+# Links
+
+https://www.kaggle.com/code/ayeiremolak/kidney-ct-image-disease-classification-project
