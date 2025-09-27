@@ -1,7 +1,7 @@
 # Kidney CT Image Disease Classification Project
 This repository presents a project focused on classifying Kidney CT scan images into four distinct pathological categories using a fine-tuned ResNet50 deep learning network structure. The project successfully leverages Transfer Learning to achieve high classification reliability.
 
-🔬 Introduction and Methodology
+**🔬 Introduction and Methodology**
 This project aims to detect abnormalities (Cyst, Normal, Stone, Tumor) in kidney CT images using a robust ResNet50 architecture. Due to the complexity and scarcity of medical image data, the Transfer Learning methodology was adopted, providing a strong foundation for image feature extraction.
 
 Dataset: Kidney CT Scans (Cyst, Normal, Stone, Tumor Classes)
@@ -12,7 +12,7 @@ Goal: Multi-class Classification (4 Classes)
 
 All technical details regarding the architecture, layer configurations, and preprocessing steps are thoroughly documented within the project's main analysis file.
 
-🧠 Network Architecture and Training Strategy
+**🧠 Network Architecture and Training Strategy**
 The network structure was meticulously trained using a two-phase fine-tuning strategy built upon a powerful pre-trained base model.
 
 1. Network Architecture
@@ -27,7 +27,7 @@ Head Training: Initially, the ResNet50 body was frozen (non-trainable), and only
 
 End-to-End Fine-Tuning: Subsequently, the final 50 layers of ResNet50 were unfrozen. The entire network was then retrained with a very low learning rate using the Adam Optimizer to finely tune the weights to the nuances of the kidney CT data.
 
-📊 Final Performance Metrics and Interpretation
+**📊 Final Performance Metrics and Interpretation**
 The reliability of the network structure is comprehensively analyzed, demonstrating a strong, optimized performance that surpasses initial expectations.
 
 1. Core Performance Metrics
@@ -46,12 +46,9 @@ Generalization Test: A critical test confirmed the model's ability to handle rea
 
 Test Outcome: The model successfully generalized with a high Prediction Confidence of 88.92%, validating its practical utility despite format shifts.
 
-💻 Addendum: Overcoming Technical Barriers
-The most critical technical achievement was overcoming the persistent Keras/TensorFlow loading errors associated with fine-tuned models, which complicated further analysis.
 
-Functional API Reconstruction (Critical Solution): Loading the fine-tuned .h5 file resulted in corrupted internal tensor references (AttributeError, ValueError). The solution involved rebuilding the network architecture from scratch using the Functional API, ensuring the preservation and clean copying of all original trained weights. This method provides a stable and reliable network structure for deployment and further analysis.
 
-🚀 Conclusion and Future Work
+**🚀 Conclusion and Future Work**
 This project successfully established a reliable deep learning pipeline for kidney image classification. The strong accuracy and proven robustness confirm the network structure's potential as a valuable pre-diagnostic tool.
 
 Future Plans
