@@ -1,80 +1,69 @@
-# Kidney-CT-Image-Disease-Classification-Project
-This repository presents a project focused on classifying Kidney CT scan images into four distinct pathological categories using a fine-tuned ResNet50 deep learning network structure. The project leverages Transfer Learning to achieve high classification reliability.
+Kidney CT Image Disease Classification Project
+This repository presents a project focused on classifying Kidney CT scan images into four distinct pathological categories using a fine-tuned ResNet50 deep learning network structure. The project successfully leverages Transfer Learning to achieve high classification reliability.
 
+🔬 Introduction and Methodology
+This project aims to detect abnormalities (Cyst, Normal, Stone, Tumor) in kidney CT images using a robust ResNet50 architecture. Due to the complexity and scarcity of medical image data, the Transfer Learning methodology was adopted, providing a strong foundation for image feature extraction.
 
-# Introduction
-This project aims to detect abnormalities (Cyst, Stone, Tumor) in kidney CT images using a robust ResNet50 architecture. Due to the complexity of medical image data, the Transfer Learning methodology was adopted.
+Dataset: Kidney CT Scans (Cyst, Normal, Stone, Tumor Classes)
 
-Feature	Detail
-Dataset:	Kidney CT Scans (Cyst, Normal, Stone, Tumor Classes)
-Algorithm:	Fine-Tuned ResNet50 (Convolutional Neural Network - CNN)
-Goal:	Multi-class Classification (4 Classes)
+Algorithm: Fine-Tuned ResNet50 (Convolutional Neural Network - CNN)
 
-All technical details regarding the architecture, layer configurations, and preprocessing steps are thoroughly documented within the project's main analysis file (notebook or script) using Markdown formatting.
+Goal: Multi-class Classification (4 Classes)
 
-# Network Architecture and Training Methodology
-The network structure was trained using a two-phase fine-tuning strategy, built upon a powerful pre-trained base model.
+All technical details regarding the architecture, layer configurations, and preprocessing steps are thoroughly documented within the project's main analysis file.
+
+🧠 Network Architecture and Training Strategy
+The network structure was meticulously trained using a two-phase fine-tuning strategy built upon a powerful pre-trained base model.
 
 1. Network Architecture
-The architecture uses ResNet50 for feature extraction and adds a custom classification head:
+The architecture uses ResNet50 (ImageNet pre-trained) for deep feature extraction, followed by a custom classification head designed for specific disease detection:
 
-Layer	Configuration	Purpose
-Base Model:	ResNet50 (ImageNet pre-trained)	To extract deep, robust visual features from the images.
-Custom Dense Layer:	Dense(512, activation='relu')	To adapt the high-level features for specific disease classification.
-Regularization:	Dropout(0.4)	To prevent Overfitting and improve generalization capability.
-Output Layer:	Dense(4, activation='softmax')	To produce the final probability distribution for the four classes.
+Custom Classification Head: Includes a Dense(512, activation='relu') layer to adapt high-level features, followed by a Dropout(0.4) layer for regularization to prevent overfitting.
+
+Output Layer: A Dense(4, activation='softmax') layer produces the final probability distribution for the four classes.
 
 2. Fine-Tuning Strategy
 Head Training: Initially, the ResNet50 body was frozen (non-trainable), and only the newly added classification layers were trained.
 
-End-to-End Fine-Tuning: Subsequently, the final layers of ResNet50 were unfrozen, and the entire network was retrained with a very low learning rate to finely tune the weights to the nuances of the kidney CT data.
+End-to-End Fine-Tuning: Subsequently, the final 50 layers of ResNet50 were unfrozen. The entire network was then retrained with a very low learning rate using the Adam Optimizer to finely tune the weights to the nuances of the kidney CT data.
 
-# Metrics, Visualization, and Interpretation
-The reliability of the network structure is comprehensively analyzed using both quantitative metrics and visual tools.
+📊 Final Performance Metrics and Interpretation
+The reliability of the network structure is comprehensively analyzed, demonstrating a strong, optimized performance that surpasses initial expectations.
 
 1. Core Performance Metrics
-Reliability (Accuracy):	80.00%
-Loss Function:	Categorical Crossentropy
+The model achieved highly reliable results across the test set:
 
-2. Visual Metrics
-The project utilizes the following visualizations to provide deeper insight into model and data performance:
+Final Test Accuracy (Güvenilirlik): 84.62%
 
-Dataset Histogram (Class Distribution):
+Loss Function: Categorical Crossentropy
 
-Purpose: Visualizes the balance of samples across the four classes (Cyst, Normal, Stone, Tumor) in the training and test sets.
+Key Classification Metrics: The model was rigorously evaluated based on Precision (Kesinlik), Recall (Duyarlılık/Hassasiyet), F1-Score, and Specificity (Özgüllük) across all classes.
 
-Insight: Helps determine if class imbalance exists, which can bias the model towards majority classes.
+2. Visual and Robustness Analysis
+Visual Metrics: The Dataset Histogram confirmed manageable class distribution. The Confusion Matrix confirmed the strong accuracy while pinpointing specific areas of confusion (e.g., mistaking a Tumor for a Cyst), guiding future improvements.
 
-Confusion Matrix:
+Generalization Test: A critical test confirmed the model's ability to handle real-world variations, such as external grayscale (B&W) CT scans. This required a Robustness Fix involving an OpenCV B&W-to-RGB conversion and Normalization Fix in the preprocessing pipeline.
 
-Purpose: Visually maps the distribution of correct vs. incorrect predictions for each class.
+Test Outcome: The model successfully generalized with a high Prediction Confidence of 88.92%, validating its practical utility despite format shifts.
 
-Insight: The high values along the main diagonal confirm the 80% accuracy. More importantly, off-diagonal values pinpoint exactly which classes the network tends to confuse (e.g., mistaking a Tumor for a Cyst), guiding future model improvements.
+💻 Addendum: Overcoming Technical Barriers
+The most critical technical achievement was overcoming the persistent Keras/TensorFlow loading errors associated with fine-tuned models, which complicated further analysis.
 
-3. Interpretation of Results
-The 80.00% reliability demonstrates the network structure's strong capability in differentiating complex medical images. The visual metrics confirm the robustness of the predictions while identifying specific areas where performance can be optimized. This accuracy confirms the network structure's potential as a valuable pre-diagnostic tool.
+Functional API Reconstruction (Critical Solution): Loading the fine-tuned .h5 file resulted in corrupted internal tensor references (AttributeError, ValueError). The solution involved rebuilding the network architecture from scratch using the Functional API, ensuring the preservation and clean copying of all original trained weights. This method provides a stable and reliable network structure for deployment and further analysis.
 
-# Addendum
-The most critical technical achievement of this project was overcoming the persistent Keras/TensorFlow loading errors associated with fine-tuned models.
+🚀 Conclusion and Future Work
+This project successfully established a reliable deep learning pipeline for kidney image classification. The strong accuracy and proven robustness confirm the network structure's potential as a valuable pre-diagnostic tool.
 
-1. Functional API Reconstruction (Critical Solution)
-Problem: Loading the fine-tuned .h5 file resulted in corrupted internal tensor references (e.g., AttributeError, ValueError), preventing further analysis like Grad-CAM.
-
-Solution: The network architecture was rebuilt from scratch using the Functional API, while simultaneously preserving and copying the original trained weights.
-
-Value: This method ensures that the final network structure used for prediction (model) is a clean, reliable copy of the original work, free from internal framework errors.
-
-Conclusion and Future Work
-This project successfully established a reliable deep learning pipeline for kidney image classification.
-
-# Future Plans
+Future Plans
 To enhance the project's quality and practical utility, future work will focus on:
 
-Dynamic Data Integration: Integrating the static dataset with a dynamic simulation or clinical data stream to make the project more reflective of real-time applications.
+Architectural Exploration: Aiming to push reliability above 90% by experimenting with modern, efficient architectures like DenseNet or EfficientNet.
 
-Architectural Exploration: Aiming to push reliability above 90% by experimenting with modern architectures like DenseNet or EfficientNet and performing rigorous comparative analysis.
+Deeper Generalization: Integrating training with original grayscale CT/MRI data to better reflect actual clinical input.
 
-Career Direction: The project serves as a foundation for exploring Medical Imaging Analysis (MIA) and related fields. Future efforts will involve studying technologies needed to integrate this network structure into clinical workflows.
+Dynamic Data Integration: Integrating the model with a dynamic simulation or clinical data stream for real-time application scenarios.
+
+Career Direction: The project serves as a foundation for exploring Medical Imaging Analysis (MIA) and related technologies needed to integrate this network structure into clinical workflows.
 
 # Links
 
