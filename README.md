@@ -1,67 +1,56 @@
-# Kidney CT Image Disease Classification Project
-This repository presents a project focused on classifying Kidney CT scan images into four distinct pathological categories using a fine-tuned ResNet50 deep learning network structure. The project successfully leverages Transfer Learning to achieve high classification reliability.
 
-**🔬 Introduction and Methodology**
-This project aims to detect abnormalities (Cyst, Normal, Stone, Tumor) in kidney CT images using a robust ResNet50 architecture. Due to the complexity and scarcity of medical image data, the Transfer Learning methodology was adopted, providing a strong foundation for image feature extraction.
+# 🏆 Kidney CT Image Disease Classification Project
+This repository documents a project that successfully classifies Kidney CT scan images into four distinct pathological categories using a Fine-Tuned ResNet50 deep learning network. By rigorously applying Class Weighting and a two-stage Transfer Learning strategy, the project achieved exceptionally high reliability, even for critical minority classes.
 
-Dataset: Kidney CT Scans (Cyst, Normal, Stone, Tumor Classes)
+## 🔬 Introduction and Methodology
+This project aimed to achieve highly accurate detection of abnormalities (Cyst, Normal, Stone, Tumor) in kidney CT images. Given the challenges of limited and imbalanced medical image data, a robust methodology was adopted to ensure the model did not overlook critical pathologies.
 
-Algorithm: Fine-Tuned ResNet50 (Convolutional Neural Network - CNN)
+The solution is based on a Two-Stage Fine-Tuned ResNet50 architecture, leveraging its powerful feature extraction capabilities. A key focus was managing the data imbalance to prioritize high Recall for life-critical conditions like 'Stone' and 'Tumor'.
 
-Goal: Multi-class Classification (4 Classes)
+## 🧠 Network Architecture and Training Strategy
+The network structure was meticulously trained using a strategy that adapts the model's pre-trained knowledge to the specific nuances of kidney CT data.
 
-All technical details regarding the architecture, layer configurations, and preprocessing steps are thoroughly documented within the project's main analysis file.
+**Training Strategy Highlights**
 
-**🧠 Network Architecture and Training Strategy**
-The network structure was meticulously trained using a two-phase fine-tuning strategy built upon a powerful pre-trained base model.
+1. Stage 1: Feature Extraction: The entire ResNet50 body was frozen (non-trainable), and only a newly added custom classification head was trained. This provided a rapid establishment of the core feature set.
 
-1. Network Architecture
-The architecture uses ResNet50 (ImageNet pre-trained) for deep feature extraction, followed by a custom classification head designed for specific disease detection:
+2. Stage 2: End-to-End Fine-Tuning: The final 50 layers of ResNet50 were unfrozen and the entire network was trained again. A very low learning rate was used to ensure the model gently adapted the pre-trained weights to the new domain, leading to the final performance boost.
 
-Custom Classification Head: Includes a Dense(512, activation='relu') layer to adapt high-level features, followed by a Dropout(0.4) layer for regularization to prevent overfitting.
+**Architecture Details**
+The architecture uses ResNet50 as the backbone, topped with a custom head featuring a Dense(512,activation= ′relu ′) layer and a Dropout(0.3) layer for robust regularization, feeding into a Dense(4,activation= ′softmax ′) output layer.
 
-Output Layer: A Dense(4, activation='softmax') layer produces the final probability distribution for the four classes.
+## 🚀 Key Achievements and Robustness
+The model's reliability is proven not just by its overall accuracy, but by its performance on medically critical metrics, directly demonstrating the success of the imbalance management techniques.
 
-2. Fine-Tuning Strategy
-Head Training: Initially, the ResNet50 body was frozen (non-trainable), and only the newly added classification layers were trained.
+**Core Performance Metrics (Test Set)**
+The model achieved outstanding results on the unseen test set:
 
-End-to-End Fine-Tuning: Subsequently, the final 50 layers of ResNet50 were unfrozen. The entire network was then retrained with a very low learning rate using the Adam Optimizer to finely tune the weights to the nuances of the kidney CT data.
+Final Test Accuracy: 99.68%
 
-**📊 Final Performance Metrics and Interpretation**
-The reliability of the network structure is comprehensively analyzed, demonstrating a strong, optimized performance that surpasses initial expectations.
+Test Loss:	0.0122
 
-1. Core Performance Metrics
-The model achieved highly reliable results across the test set:
-
-Final Test Accuracy (Güvenilirlik): 84.62%
-
-Loss Function: Categorical Crossentropy
-
-Key Classification Metrics: The model was rigorously evaluated based on Precision (Kesinlik), Recall (Duyarlılık/Hassasiyet), F1-Score, and Specificity (Özgüllük) across all classes.
-
-2. Visual and Robustness Analysis
-Visual Metrics: The Dataset Histogram confirmed manageable class distribution. The Confusion Matrix confirmed the strong accuracy while pinpointing specific areas of confusion (e.g., mistaking a Tumor for a Cyst), guiding future improvements.
-
-Generalization Test: A critical test confirmed the model's ability to handle real-world variations, such as external grayscale (B&W) CT scans. This required a Robustness Fix involving an OpenCV B&W-to-RGB conversion and Normalization Fix in the preprocessing pipeline.
-
-Test Outcome: The model successfully generalized with a high Prediction Confidence of 88.92%, validating its practical utility despite format shifts.
+Support:	1867 Samples
 
 
+**Imbalance Management is Key--
+The core success factor was the implementation of dynamically calculated Class Weights. This approach heavily penalized misclassifications of the minority classes (Stone, Tumor).
 
-**🚀 Conclusion and Future Work**
-This project successfully established a reliable deep learning pipeline for kidney image classification. The strong accuracy and proven robustness confirm the network structure's potential as a valuable pre-diagnostic tool.
+The resulting ≈0.99 Recall for these critical conditions proves the model's ability to minimize False Negatives (missed diagnoses), confirming its high clinical potential.
 
-Future Plans
-To enhance the project's quality and practical utility, future work will focus on:
+**Generalization Test**
+The model's robustness was validated against real-world variations, including external grayscale CT scans. This required a Robustness Fix (OpenCV B&W-to-RGB conversion) in the preprocessing pipeline, which successfully ensured the model maintained its high performance despite format shifts.
 
-Architectural Exploration: Aiming to push reliability above 90% by experimenting with modern, efficient architectures like DenseNet or EfficientNet.
+## 🌟 Conclusion and Future Work
+This project has successfully established a highly reliable deep learning pipeline for kidney image classification. The combination of high 99.68% accuracy and the near-perfect Recall on critical classes confirms the network's potential as a valuable pre-diagnostic tool.
 
-Deeper Generalization: Integrating training with original grayscale CT/MRI data to better reflect actual clinical input.
+**Future Plans**
 
-Dynamic Data Integration: Integrating the model with a dynamic simulation or clinical data stream for real-time application scenarios.
+Explainable AI (XAI): Integrate Grad-CAM analysis to visually demonstrate which image regions drive the model's prediction, providing essential clinical transparency.
 
-Career Direction: The project serves as a foundation for exploring Medical Imaging Analysis (MIA) and related technologies needed to integrate this network structure into clinical workflows.
+Architectural Exploration: Experiment with newer, more compute-efficient architectures (like DenseNet or EfficientNet) to optimize for deployment speed.
 
-# Links
+Deployment Preparation: Convert the final model into a lightweight format (e.g., TensorFlow Lite or TensorFlow.js) and build a simple web interface for real-time application scenarios.
 
-https://www.kaggle.com/code/ayeiremolak/kidney-ct-image-disease-classification-project
+## Links
+
+https://www.kaggle.com/code/ayeiremolak/kidney-ct-image-disease-classification
